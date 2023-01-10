@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { patchReviewVotesById, getCommentsById } from "../utils/api";
 import { CommentCard } from "./CommentCard";
+import moment from "moment/moment";
 
 export const SingleReview = ({
   reviewData: {
@@ -31,7 +32,7 @@ export const SingleReview = ({
     <div className="SingleReview">
       <h2>{title} </h2>
       <p>
-        Written by {owner} at {created_at.split("T")[0]}
+        Written by {owner}, {moment(created_at).format("MMM Do YYYY")},
         <button
           disabled={localVotes !== votes}
           onClick={() => {
@@ -42,15 +43,14 @@ export const SingleReview = ({
           {localVotes} {localVotes > 1 ? "votes" : "vote"} +
         </button>
       </p>
-      <p>{votes} votes</p>
       <img src={review_img_url} alt="header image of game"></img>
       <p>
         A {category} game by {designer}
       </p>
       <p>{review_body}</p>
-      <p>
+      <h3>
         {comment_count} {comment_count !== 1 ? "Comments" : "Comment"}:{" "}
-      </p>
+      </h3>
       {commentsLoaded ? (
         <ul>
           {comments.map((comment) => (

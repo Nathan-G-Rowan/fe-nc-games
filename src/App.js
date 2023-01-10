@@ -3,13 +3,9 @@ import "./App.css";
 import { getUsers } from "./utils/api";
 import { useEffect, useState } from "react";
 import { Reviews } from "./elements/Reviews";
-import {
-  useNavigate,
-  Link,
-  useLocation,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { ReviewRouter } from "./elements/ReviewRouter";
+
+import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
@@ -42,7 +38,8 @@ function App() {
       </nav>
       <main>
         <Routes>
-          <Route path="*" element={<Reviews />} />
+          <Route path="/" element={<Reviews />} />
+          <Route path="/review/:id/*" element={<ReviewRouter />} />
         </Routes>
       </main>
     </div>

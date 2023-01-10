@@ -15,3 +15,8 @@ export const getReviews = (category, sortBy = "date", orderDesc = true) => {
     return data.reviews;
   });
 };
+export const getReviewById = (id) => {
+  return dataApi.get(`/reviews/${id}`).then(({ data }) => {
+    return data.review;
+  });
+};

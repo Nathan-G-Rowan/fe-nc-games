@@ -40,7 +40,7 @@ export const Reviews = () => {
           <p>nothing seems to be here...</p>
         )
       ) : (
-        <p>Loading...</p>
+        <p>Loading Reviews</p>
       )}
     </section>
   );

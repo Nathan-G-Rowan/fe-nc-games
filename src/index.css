@@ -1,8 +1,11 @@
-/*
-colour guide:
-  LightCoral
-  Lavender
-*/
+a {
+  all: unset;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
 
 body {
   margin: 0;
@@ -54,7 +57,7 @@ button {
   box-shadow: 0px 2px white;
 
   color: white;
-  background: #004455;
+  background: #00000000;
 }
 button:disabled {
   color: white;
@@ -63,6 +66,10 @@ button:disabled {
 button:hover {
   color: #dd1133;
   background-color: white;
+}
+
+img {
+  max-width: 720px;
 }
 
 main {
@@ -78,5 +85,5 @@ main {
   background-color: #dddddd;
 
   border-radius: 5px;
-  box-shadow: 0px 2px #004455aa;
+  box-shadow: 0px 2px #004455;
 }

@@ -38,7 +38,6 @@ export const SingleReview = ({
       </p>
       <p>{review_body}</p>
       <p>
-        {votes} {votes > 1 ? "votes" : "vote"} <br />
         {comment_count} {comment_count > 1 ? "comments" : "comment"}:{" "}
       </p>
       <ul>

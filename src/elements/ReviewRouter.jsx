@@ -33,7 +33,7 @@ export const ReviewRouter = () => {
             />
           </Routes>
         ) : (
-          <p>Missing review!</p>
+          <p className="error">404: Missing Review!</p>
         )
       ) : (
         <p>Loading Review</p>

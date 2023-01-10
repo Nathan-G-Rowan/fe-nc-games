@@ -15,10 +15,7 @@ export const SingleReview = ({
     comment_count,
   },
 }) => {
-  const [localVotes, setLocalVotes] = useState();
-  useEffect(() => {
-    setLocalVotes(votes);
-  }, [votes]);
+  const [localVotes, setLocalVotes] = useState(votes);
 
   return (
     <div className="SingleReview">
@@ -35,12 +32,13 @@ export const SingleReview = ({
           {localVotes} {localVotes > 1 ? "votes" : "vote"} +
         </button>
       </p>
-
+      <p>{votes} votes</p>
       <img src={review_img_url} alt="header image of game"></img>
       <p>
         A {category} game by {designer}
       </p>
       <p>{review_body}</p>
+      <p>{votes} votes</p>
       <p>{comment_count} comments</p>
     </div>
   );

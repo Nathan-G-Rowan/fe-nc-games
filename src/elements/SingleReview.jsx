@@ -38,7 +38,7 @@ export const SingleReview = ({
       </p>
       <p>{review_body}</p>
       <p>
-        {comment_count} {comment_count > 1 ? "comments" : "comment"}:{" "}
+        {comment_count} {comment_count !== 1 ? "comments" : "comment"}:{" "}
       </p>
       <ul>
         {comments.map((comment) => (

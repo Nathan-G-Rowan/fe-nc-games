@@ -1,17 +1,46 @@
-import './App.css';
+import "./App.css";
 
+import { getUsers } from "./utils/api";
+import { useEffect, useState } from "react";
+import { Reviews } from "./elements/Reviews";
+import { ReviewRouter } from "./elements/ReviewRouter";
+
+import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+
+  const url = useLocation();
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    getUsers().then((users) => {
+      if (users.length !== 0) setUser(users[0]);
+    });
+  }, []);
+
   return (
     <div className="App">
       <header>
-        Haha
+        <h1>Table of Tops</h1>
       </header>
       <nav>
-        Haha
+        {user ? user.name : "Loading User"}
+        <button disabled={url.pathname === "/"} onClick={() => navigate("/")}>
+          Reviews
+        </button>
+        <button
+          disabled={url.pathname === "/user"}
+          onClick={() => navigate("/user")}
+        >
+          User
+        </button>
       </nav>
       <main>
-        Loading
+        <Routes>
+          <Route path="/" element={<Reviews />} />
+          <Route path="/review/:id/*" element={<ReviewRouter />} />
+        </Routes>
       </main>
     </div>
   );

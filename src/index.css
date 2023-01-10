@@ -1,5 +1,15 @@
+a {
+  all: unset;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
 body {
   margin: 0;
+  padding: 0;
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -7,4 +17,75 @@ body {
 
 code {
   font-family: "Courier New", Courier, monospace;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+h3 {
+  margin: 0;
+  color: black;
+}
+
+header {
+  padding: 10px;
+  color: white;
+  background-color: #dd1133;
+
+  text-shadow: 0px 2px black;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  background-color: #004455;
+  padding: 10px;
+}
+
+button {
+  padding: 5px;
+  margin: 0 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+  box-shadow: 0px 2px white;
+
+  color: white;
+  background: #00000000;
+}
+button:disabled {
+  color: white;
+  background-color: #dd1133;
+}
+button:hover {
+  color: #dd1133;
+  background-color: white;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 10px;
+  color: #004455;
+}
+
+.ReviewCard {
+  margin: 10px;
+  padding: 5px;
+
+  background-color: #dddddd;
+
+  border-radius: 5px;
+  box-shadow: 0px 2px #004455;
 }

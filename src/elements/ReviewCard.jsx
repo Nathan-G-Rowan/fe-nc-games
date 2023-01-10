@@ -1,11 +1,11 @@
-export const ReviewCard = ({ title, owner, votes, date }) => {
+export const ReviewCard = ({ id, title, owner, votes, date }) => {
   return (
-    <div className="ReviewCard">
+    <li className="ReviewCard">
       <h3>{title}</h3>
       <span>
         {owner} <br />
         {date} votes:{votes}
       </span>
-    </div>
+    </li>
   );
 };

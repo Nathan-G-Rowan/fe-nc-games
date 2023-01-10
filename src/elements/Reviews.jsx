@@ -24,14 +24,18 @@ export const Reviews = () => {
     <section className="ReviewList">
       {isLoaded ? (
         reviews.length > 0 ? (
-          reviews.map((review) => (
-            <ReviewCard
-              title={review.title}
-              owner={review.owner}
-              votes={review.votes}
-              date={review.created_at.split("T")[0]}
-            />
-          ))
+          <ul>
+            {reviews.map((review) => (
+              <ReviewCard
+                key={review.review_id}
+                id={review.review_id}
+                title={review.title}
+                owner={review.owner}
+                votes={review.votes}
+                date={review.created_at.split("T")[0]}
+              />
+            ))}
+          </ul>
         ) : (
           <p>nothing seems to be here...</p>
         )

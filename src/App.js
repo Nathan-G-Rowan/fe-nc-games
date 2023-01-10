@@ -3,12 +3,19 @@ import "./App.css";
 import { getUsers } from "./utils/api";
 import { useEffect, useState } from "react";
 import { Reviews } from "./elements/Reviews";
-import { Link, useLocation, Routes, Route } from "react-router-dom";
+import {
+  useNavigate,
+  Link,
+  useLocation,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+
   const url = useLocation();
   const [user, setUser] = useState(undefined);
-  
 
   useEffect(() => {
     getUsers().then((users) => {
@@ -23,12 +30,15 @@ function App() {
       </header>
       <nav>
         {user ? user.name : "Loading User"}
-        <Link to="/">
-          <button disabled={url.pathname === "/"}>Reviews</button>
-        </Link>
-        <Link to="/user">
-          <button disabled={url.pathname === "/user"}>User</button>
-        </Link>
+        <button disabled={url.pathname === "/"} onClick={() => navigate("/")}>
+          Reviews
+        </button>
+        <button
+          disabled={url.pathname === "/user"}
+          onClick={() => navigate("/user")}
+        >
+          User
+        </button>
       </nav>
       <main>
         <Routes>

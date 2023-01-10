@@ -81,11 +81,27 @@ main {
 }
 
 .ReviewCard {
-  margin: 10px;
+  margin: 10px 0;
   padding: 5px;
 
   background-color: #dddddd;
 
+  border: 1px solid #004455;
   border-radius: 5px;
   box-shadow: 0px 2px #004455;
+}
+
+.commentCard {
+  margin: 10px 0;
+  padding: 5px;
+
+  background-color: #dddddd;
+
+  border: 1px solid #004455;
+  border-radius: 5px;
+  box-shadow: 0px 2px #004455;
+}
+
+.rightAlign {
+  align-self: right;
 }

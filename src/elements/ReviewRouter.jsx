@@ -18,7 +18,6 @@ export const ReviewRouter = () => {
       })
       .catch((err) => {
         setIsLoaded(true);
-        console.log(err);
       });
   }, []);
 

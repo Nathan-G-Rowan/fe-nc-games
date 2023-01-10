@@ -20,3 +20,9 @@ export const getReviewById = (id) => {
     return data.review;
   });
 };
+
+export const getCommentsById = (id) => {
+  return dataApi.get(`/reviews/${id}/comments`).then(({ data }) => {
+    return data.comments;
+  });
+};

@@ -61,12 +61,13 @@ main {
   color: #004455;
 }
 
-.ReviewCard {
+.card {
   margin: 10px 0;
   padding: 5px;
 
   background-color: #ffffff;
 
+  border: 1px solid #00445544;
   border-radius: 5px;
   box-shadow: 0px 2px #004455;
 }
@@ -96,6 +97,14 @@ nav button {
   box-shadow: 0px 2px white;
 
   color: white;
+}
+nav button:disabled {
+  margin: 0 5px;
+  border: 1px solid white;
+  box-shadow: 0px 2px white;
+
+  color: white;
+  background-color: #dd1133;
 }
 
 .error {

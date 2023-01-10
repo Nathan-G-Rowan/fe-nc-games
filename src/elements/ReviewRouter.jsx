@@ -28,7 +28,12 @@ export const ReviewRouter = () => {
           <Routes>
             <Route
               path="/"
-              element={<SingleReview reviewData={reviewData} />}
+              element={
+                <SingleReview
+                  Key={reviewData.review_id}
+                  reviewData={reviewData}
+                />
+              }
             />
           </Routes>
         ) : (

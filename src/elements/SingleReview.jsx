@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { patchReviewVotesById } from "../utils/api";
+import { patchReviewVotesById, getCommentsById } from "../utils/api";
+import { CommentCard } from "./CommentCard";
 
 export const SingleReview = ({
   reviewData: {
@@ -16,6 +17,15 @@ export const SingleReview = ({
   },
 }) => {
   const [localVotes, setLocalVotes] = useState(votes);
+  const [comments, setComments] = useState([]);
+  const [commentsLoaded, setCommentsLoaded] = useState(false);
+
+  useEffect(() => {
+    getCommentsById(review_id).then((responseComments) => {
+      setCommentsLoaded(true);
+      setComments(responseComments);
+    });
+  }, []);
 
   return (
     <div className="SingleReview">
@@ -38,8 +48,18 @@ export const SingleReview = ({
         A {category} game by {designer}
       </p>
       <p>{review_body}</p>
-      <p>{votes} votes</p>
-      <p>{comment_count} comments</p>
+      <p>
+        {comment_count} {comment_count !== 1 ? "Comments" : "Comment"}:{" "}
+      </p>
+      {commentsLoaded ? (
+        <ul>
+          {comments.map((comment) => (
+            <CommentCard key={comment.comment_id} comment={comment} />
+          ))}
+        </ul>
+      ) : (
+        "Loading Comments"
+      )}
     </div>
   );
 };

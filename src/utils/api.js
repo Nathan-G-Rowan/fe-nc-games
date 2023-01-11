@@ -20,8 +20,8 @@ export const getReviewById = (id) => {
     return data.review;
   });
 };
-export const patchReviewVotesById = (id) => {
-  return dataApi.patch(`/reviews/${id}`, { inc_votes: 1 }).then(({ data }) => {
+export const patchReviewVotesById = (id, inc) => {
+  return dataApi.patch(`/reviews/${id}`, { inc_votes: inc }).then(({ data }) => {
     return data.review;
   });
 };

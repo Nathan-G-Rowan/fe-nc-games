@@ -18,6 +18,7 @@ export const SingleReview = ({
   },
 }) => {
   const [localVotes, setLocalVotes] = useState(votes);
+  const [processingVote, setProcessingVote] = useState(false);
   const [comments, setComments] = useState([]);
   const [commentsLoaded, setCommentsLoaded] = useState(false);
 
@@ -28,28 +29,46 @@ export const SingleReview = ({
     });
   }, []);
 
+  const vote = () => {
+    if (!processingVote) setProcessingVote(true);
+    const inc = localVotes > votes ? -1 : 1;
+    patchReviewVotesById(review_id, inc)
+      .then((res) => {
+        setLocalVotes((currentVotes) => currentVotes + inc);
+        setProcessingVote(false);
+      })
+      .catch((err) => {
+        setProcessingVote(false);
+      });
+  };
+
   return (
     <div className="SingleReview">
-      <h2 className="spreadLine">
-        {title}{" "}
-        <button className="noWrap"
-          disabled={localVotes !== votes}
-          onClick={() => {
-            patchReviewVotesById(review_id);
-            setLocalVotes((currentVotes) => currentVotes + 1);
-          }}
-        >
-          {localVotes} {localVotes > 1 ? "votes" : "vote"} +
-        </button>
-      </h2>
+      <div className="spreadLine">
+        <h2>{title} </h2>
+        <div className="noWrap">
+          {localVotes > 1 ? `${localVotes} votes` : `${localVotes}vote`}{" "}
+          <button
+            className="voteButton"
+            disabled={processingVote}
+            onClick={vote}
+          >
+            {localVotes > votes ? "▼undo" : "▲vote"}
+          </button>
+        </div>
+      </div>
+
       <p>
         Written by {owner}, {moment(created_at).format("MMM Do YYYY")},
       </p>
+
       <img src={review_img_url} alt="header image of game"></img>
       <p>
         A {category} game by {designer}
       </p>
+
       <p>{review_body}</p>
+
       <h3>
         {comment_count} {comment_count !== 1 ? "Comments" : "Comment"}:{" "}
       </h3>

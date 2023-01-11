@@ -1,6 +1,7 @@
 import { useParams, useLocation, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { SingleReview } from "./SingleReview";
+import { PostComment } from "./PostComment";
 import { getReviewById } from "../utils/api";
 
 export const ReviewRouter = () => {
@@ -29,6 +30,10 @@ export const ReviewRouter = () => {
             <Route
               path="/"
               element={<SingleReview reviewData={reviewData} />}
+            />
+            <Route
+              path="/comment"
+              element={<PostComment reviewData={reviewData} />}
             />
           </Routes>
         ) : (

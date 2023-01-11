@@ -20,6 +20,11 @@ export const getReviewById = (id) => {
     return data.review;
   });
 };
+export const patchReviewVotesById = (id, inc) => {
+  return dataApi.patch(`/reviews/${id}`, { inc_votes: inc }).then(({ data }) => {
+    return data.review;
+  });
+};
 
 export const getCommentsById = (id) => {
   return dataApi.get(`/reviews/${id}/comments`).then(({ data }) => {

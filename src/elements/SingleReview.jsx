@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { getCommentsById } from "../utils/api";
+import { patchReviewVotesById, getCommentsById } from "../utils/api";
 import { CommentCard } from "./CommentCard";
+import moment from "moment/moment";
 
 export const SingleReview = ({
   reviewData: {
@@ -16,35 +17,70 @@ export const SingleReview = ({
     comment_count,
   },
 }) => {
+  const [localVotes, setLocalVotes] = useState(votes);
+  const [processingVote, setProcessingVote] = useState(false);
   const [comments, setComments] = useState([]);
+  const [commentsLoaded, setCommentsLoaded] = useState(false);
+
   useEffect(() => {
-    getCommentsById(review_id).then((serverComments) =>
-      setComments(serverComments)
-    );
+    getCommentsById(review_id).then((responseComments) => {
+      setCommentsLoaded(true);
+      setComments(responseComments);
+    });
   }, []);
+
+  const vote = () => {
+    if (!processingVote) setProcessingVote(true);
+    const inc = localVotes > votes ? -1 : 1;
+    patchReviewVotesById(review_id, inc)
+      .then((res) => {
+        setLocalVotes((currentVotes) => currentVotes + inc);
+        setProcessingVote(false);
+      })
+      .catch((err) => {
+        setProcessingVote(false);
+      });
+  };
 
   return (
     <div className="SingleReview">
-      <h2>{title}</h2>
+      <div className="spreadLine">
+        <h2>{title} </h2>
+        <div className="noWrap">
+          {localVotes > 1 ? `${localVotes} votes` : `${localVotes}vote`}{" "}
+          <button
+            className="voteButton"
+            disabled={processingVote}
+            onClick={vote}
+          >
+            {localVotes > votes ? "▼undo" : "▲vote"}
+          </button>
+        </div>
+      </div>
+
       <p>
-        By {owner} at {created_at.split("T")[0]}
+        Written by {owner}, {moment(created_at).format("MMM Do YYYY")},
       </p>
-      <p>
-        {votes} {votes > 1 ? "votes" : "vote"}
-      </p>
+
       <img src={review_img_url} alt="header image of game"></img>
       <p>
         A {category} game by {designer}
       </p>
+
       <p>{review_body}</p>
-      <p>
-        {comment_count} {comment_count !== 1 ? "comments" : "comment"}:{" "}
-      </p>
-      <ul>
-        {comments.map((comment) => (
-          <CommentCard comment={comment} />
-        ))}
-      </ul>
+
+      <h3>
+        {comment_count} {comment_count !== 1 ? "Comments" : "Comment"}:{" "}
+      </h3>
+      {commentsLoaded ? (
+        <ul>
+          {comments.map((comment) => (
+            <CommentCard key={comment.comment_id} comment={comment} />
+          ))}
+        </ul>
+      ) : (
+        "Loading Comments"
+      )}
     </div>
   );
 };

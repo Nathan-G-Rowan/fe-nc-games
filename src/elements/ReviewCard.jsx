@@ -11,7 +11,7 @@ export const ReviewCard = ({ id, title, owner, votes, date }) => {
             {votes} {votes !== 1 ? "votes" : "vote"}
           </span>
         </span>
-        <span className="spreadLine">
+        <span className="wrapLine">
           <div>by {owner}</div>
           <div>{moment(date).format("MMM Do YYYY")}</div>
         </span>

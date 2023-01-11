@@ -30,10 +30,9 @@ export const SingleReview = ({
 
   return (
     <div className="SingleReview">
-      <h2>{title} </h2>
-      <p>
-        Written by {owner}, {moment(created_at).format("MMM Do YYYY")},
-        <button
+      <h2 className="spreadLine">
+        {title}{" "}
+        <button className="noWrap"
           disabled={localVotes !== votes}
           onClick={() => {
             patchReviewVotesById(review_id);
@@ -42,6 +41,9 @@ export const SingleReview = ({
         >
           {localVotes} {localVotes > 1 ? "votes" : "vote"} +
         </button>
+      </h2>
+      <p>
+        Written by {owner}, {moment(created_at).format("MMM Do YYYY")},
       </p>
       <img src={review_img_url} alt="header image of game"></img>
       <p>

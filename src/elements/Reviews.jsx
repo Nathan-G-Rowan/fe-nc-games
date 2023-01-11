@@ -26,14 +26,7 @@ export const Reviews = () => {
         reviews.length > 0 ? (
           <ul>
             {reviews.map((review) => (
-              <ReviewCard
-                key={review.review_id}
-                id={review.review_id}
-                title={review.title}
-                owner={review.owner}
-                votes={review.votes}
-                date={review.created_at.split("T")[0]}
-              />
+              <ReviewCard review={review} />
             ))}
           </ul>
         ) : (

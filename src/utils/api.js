@@ -21,13 +21,25 @@ export const getReviewById = (id) => {
   });
 };
 export const patchReviewVotesById = (id, inc) => {
-  return dataApi.patch(`/reviews/${id}`, { inc_votes: inc }).then(({ data }) => {
-    return data.review;
-  });
+  return dataApi
+    .patch(`/reviews/${id}`, { inc_votes: inc })
+    .then(({ data }) => {
+      return data.review;
+    });
 };
 
 export const getCommentsById = (id) => {
   return dataApi.get(`/reviews/${id}/comments`).then(({ data }) => {
     return data.comments;
   });
+};
+export const deleteCommentById = (id) => {
+  return dataApi.delete(`/comments/${id}`);
+};
+export const postCommentById = (id, body, username) => {
+  return dataApi
+    .post(`/reviews/${id}/comments`, { body: body, username: username })
+    .then(({ data }) => {
+      return data;
+    });
 };

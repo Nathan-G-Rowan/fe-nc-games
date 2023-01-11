@@ -3,7 +3,7 @@ import "./App.css";
 import { getUsers } from "./utils/api";
 import { useEffect, useState } from "react";
 import { Reviews } from "./elements/Reviews";
-import { ReviewRouter } from "./elements/ReviewRouter";
+import { SingleReview } from "./elements/SingleReview";
 
 import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
 
@@ -39,7 +39,12 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Reviews />} />
-          <Route path="/review/:id/*" element={<ReviewRouter />} />
+          {user ? (
+            <Route
+              path="/review/:id/*"
+              element={<SingleReview username={user.username} />}
+            />
+          ) : null}
         </Routes>
       </main>
     </div>

@@ -1,86 +1,66 @@
-import { useState, useEffect } from "react";
-import { patchReviewVotesById, getCommentsById } from "../utils/api";
-import { CommentCard } from "./CommentCard";
 import moment from "moment/moment";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-export const SingleReview = ({
-  reviewData: {
-    review_id,
-    title,
-    owner,
-    created_at,
-    category,
-    designer,
-    review_img_url,
-    review_body,
-    votes,
-    comment_count,
-  },
-}) => {
-  const [localVotes, setLocalVotes] = useState(votes);
-  const [processingVote, setProcessingVote] = useState(false);
-  const [comments, setComments] = useState([]);
-  const [commentsLoaded, setCommentsLoaded] = useState(false);
+import { getReviewById } from "../utils/api";
+
+import { Comments } from "./Comments/Comments";
+import { Vote } from "./Vote";
+
+export const SingleReview = ({ username }) => {
+  const { id } = useParams();
+
+  const [review, setReview] = useState();
+  const [reviewLoaded, setReviewLoaded] = useState(false);
+  const [reviewLoadError, setReviewLoadError] = useState("");
+
+  const [localVotes, setLocalVotes] = useState(0);
 
   useEffect(() => {
-    getCommentsById(review_id).then((responseComments) => {
-      setCommentsLoaded(true);
-      setComments(responseComments);
-    });
-  }, []);
+    setReviewLoadError("");
 
-  const vote = () => {
-    if (!processingVote) setProcessingVote(true);
-    const inc = localVotes > votes ? -1 : 1;
-    patchReviewVotesById(review_id, inc)
-      .then((res) => {
-        setLocalVotes((currentVotes) => currentVotes + inc);
-        setProcessingVote(false);
+    getReviewById(id)
+      .then((responseReview) => {
+        setReview(responseReview);
+        setReviewLoaded(true);
+        setLocalVotes(responseReview.votes);
       })
       .catch((err) => {
-        setProcessingVote(false);
+        setReviewLoadError(err.response.status);
       });
-  };
+  }, []);
+
+  if (reviewLoadError)
+    return (
+      <span className="error"> {reviewLoadError}: couldn't find review</span>
+    );
+
+  if (!reviewLoaded) return "Loading Review ...";
 
   return (
     <div className="SingleReview">
       <div className="spreadLine">
-        <h2>{title} </h2>
-        <div className="noWrap">
-          {localVotes > 1 ? `${localVotes} votes` : `${localVotes}vote`}{" "}
-          <button
-            className="voteButton"
-            disabled={processingVote}
-            onClick={vote}
-          >
-            {localVotes > votes ? "▼undo" : "▲vote"}
-          </button>
-        </div>
+        <h2>{review.title} </h2>
+        <span className="noWrap">
+          <Vote
+            body={review}
+            localVotes={localVotes}
+            setLocalVotes={setLocalVotes}
+          />
+        </span>
       </div>
-
       <p>
-        Written by {owner}, {moment(created_at).format("MMM Do YYYY")},
+        Written by {review.owner},{" "}
+        {moment(review.created_at).format("MMM Do YYYY")},
       </p>
 
-      <img src={review_img_url} alt="header image of game"></img>
+      <img src={review.review_img_url} alt="header image of game"></img>
       <p>
-        A {category} game by {designer}
+        A {review.category} game by {review.designer}
       </p>
+      <p>{review.review_body}</p>
 
-      <p>{review_body}</p>
-
-      <h3>
-        {comment_count} {comment_count !== 1 ? "Comments" : "Comment"}:{" "}
-      </h3>
-      {commentsLoaded ? (
-        <ul>
-          {comments.map((comment) => (
-            <CommentCard key={comment.comment_id} comment={comment} />
-          ))}
-        </ul>
-      ) : (
-        "Loading Comments"
-      )}
+      <Comments username={username} />
     </div>
   );
 };

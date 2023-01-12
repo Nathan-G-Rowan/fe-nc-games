@@ -90,7 +90,7 @@ button {
   margin: 5px 0;
   border: 1px solid white;
   border-radius: 5px;
-  box-shadow: 0px 2px white;
+  box-shadow: -2px 2px white;
 
   color: white;
   background: #00000000;
@@ -98,6 +98,8 @@ button {
 button:hover {
   color: crimson;
   background-color: white;
+  box-shadow: 2px -2px crimson;
+  transform: translate(-2px, 2px);
 }
 button:disabled {
   color: white;
@@ -107,12 +109,14 @@ button:disabled {
 nav button {
   margin: 0 5px;
 }
-button:hover {
-  background-color: white;
-}
 nav button:disabled {
   background-color: crimson;
 }
+nav button:hover {
+  color: crimson;
+  background-color: white;
+}
+
 .voteButton {
   padding: 5px;
   width: 4.5em;
@@ -138,6 +142,12 @@ nav button:disabled {
   justify-content: space-between;
   align-items: center;
   gap: 0 1em;
+}
+.felxLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5em;
+  align-items: center;
 }
 
 .noWrap {

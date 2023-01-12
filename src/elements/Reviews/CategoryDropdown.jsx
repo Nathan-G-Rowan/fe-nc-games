@@ -6,7 +6,7 @@ export const CategoryDropdown = ({
   categories,
 }) => {
   return (
-    <div className="CategoryDropdown">
+    <div className="felxLine">
       <div className="dropdown">
         <button className="dropButton">Category ▼</button>
         <div className="dropContent">
@@ -14,9 +14,6 @@ export const CategoryDropdown = ({
             disabled={!organise.category}
             key="all"
             onClick={() => {
-              const newOrganise = { ...organise };
-              newOrganise.category = undefined;
-              setOrganise(newOrganise);
               navigate("/");
             }}
           >
@@ -27,9 +24,6 @@ export const CategoryDropdown = ({
               disabled={category.slug === organise.category}
               key={category.slug}
               onClick={() => {
-                const newOrganise = { ...organise };
-                newOrganise.category = category.slug;
-                setOrganise(newOrganise);
                 navigate(`/category/${category.slug}`);
               }}
             >
@@ -38,7 +32,11 @@ export const CategoryDropdown = ({
           ))}
         </div>
       </div>{" "}
-      {category_slug ? ` Displaying reviews for '${category_slug}':` : null}
+      <h3>
+        {category_slug
+          ? ` Displaying reviews for '${category_slug}':`
+          : "Displaying all reviews:"}
+      </h3>
     </div>
   );
 };

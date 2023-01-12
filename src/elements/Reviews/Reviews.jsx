@@ -15,7 +15,6 @@ export const Reviews = () => {
   const [categoryError, setCategoryError] = useState(false);
   const [categories, setCategories] = useState([]);
   const [organise, setOrganise] = useState({
-    category: category_slug,
     sort_by: "date",
     orderDesc: true,
   });
@@ -25,10 +24,11 @@ export const Reviews = () => {
   }, []);
 
   useEffect(() => {
+    organise.category = category_slug;
     setIsLoaded(false);
     setReviews([]);
 
-    getReviews(organise.category, organise.sort_by, organise.orderDesc)
+    getReviews(category_slug, organise.sort_by, organise.orderDesc)
       .then((reviews) => {
         setCategoryError(false);
         setIsLoaded(true);
@@ -37,7 +37,7 @@ export const Reviews = () => {
       .catch((error) => {
         setCategoryError(true);
       });
-  }, [organise]);
+  }, [organise, navigate]);
 
   return (
     <section className="ReviewList">

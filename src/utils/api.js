@@ -17,12 +17,9 @@ export const getCategories = () => {
 };
 
 export const getReviews = (category, sortBy = "date", orderDesc = true) => {
-  const paramBody = {};
-  if (category) paramBody.category = category;
-
   return dataApi
     .get("/reviews", {
-      params: paramBody,
+      params: { category, sortBy, order: orderDesc ? "asc" : "desc" },
     })
     .then(({ data }) => {
       return data.reviews;

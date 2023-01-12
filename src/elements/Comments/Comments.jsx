@@ -34,12 +34,14 @@ export const Comments = ({ username }) => {
       <h3>
         {comments.length} {comments.length !== 1 ? "Comments" : "Comment"}:
       </h3>
-      <ul>
-        {comments.map((comment) => (
-          <CommentCard key={comment.comment_id} comment={comment} />
-        ))}
-        <NewComment username={username} setComments={setComments} />
-      </ul>
+      <div className="commentContainer">
+        <ul>
+          {comments.map((comment) => (
+            <CommentCard key={comment.comment_id} comment={comment} />
+          ))}
+        </ul>
+      </div>
+      <NewComment username={username} setComments={setComments} />
     </section>
   );
 };

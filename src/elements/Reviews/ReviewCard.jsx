@@ -6,7 +6,7 @@ export const ReviewCard = ({
 }) => {
   return (
     <Link to={`/review/${review_id}`}>
-      <li className="card">
+      <li className="hoverCard">
         <span className="spreadLine">
           <h3>{title}</h3>
 

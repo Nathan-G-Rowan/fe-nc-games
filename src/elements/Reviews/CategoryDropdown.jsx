@@ -1,3 +1,5 @@
+import { CategoryButton } from "./CategoryButton";
+
 export const CategoryDropdown = ({
   navigate,
   organise,
@@ -10,25 +12,21 @@ export const CategoryDropdown = ({
       <div className="dropdown">
         <button className="dropButton">Category ▼</button>
         <div className="dropContent">
-          <button
-            disabled={!organise.category}
+          <CategoryButton
             key="all"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            all
-          </button>
+            slug="all"
+            atLocation={!organise.category}
+            navigate={navigate}
+            address={"/"}
+          />
           {categories.map((category) => (
-            <button
-              disabled={category.slug === organise.category}
+            <CategoryButton
               key={category.slug}
-              onClick={() => {
-                navigate(`/category/${category.slug}`);
-              }}
-            >
-              {category.slug}
-            </button>
+              slug={category.slug}
+              atLocation={category.slug === organise.category}
+              navigate={navigate}
+              address={`/category/${category.slug}`}
+            />
           ))}
         </div>
       </div>{" "}

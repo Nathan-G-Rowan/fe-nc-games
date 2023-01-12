@@ -5,7 +5,13 @@ import { useEffect, useState } from "react";
 import { Reviews } from "./elements/Reviews/Reviews";
 import { SingleReview } from "./elements/SingleReview";
 
-import { useNavigate, useLocation, Routes, Route } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
@@ -22,11 +28,19 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Table of Tops</h1>
+        <Link to={`/`}>
+          <h1>Table of Tops</h1>
+        </Link>
       </header>
       <nav>
         {user ? user.name : "Loading User"}
-        <button disabled={url.pathname === "/"} onClick={() => navigate("/")}>
+        <button
+          disabled={
+            url.pathname === "/" ||
+            url.pathname.match(/\/category\/:category_slug/)
+          }
+          onClick={() => navigate("/")}
+        >
           Reviews
         </button>
         <button
@@ -39,6 +53,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Reviews />} />
+          <Route path="/category/:category_slug" element={<Reviews />} />
           {user ? (
             <Route
               path="/review/:id/*"

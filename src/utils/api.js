@@ -10,10 +10,23 @@ export const getUsers = () => {
   });
 };
 
-export const getReviews = (category, sortBy = "date", orderDesc = true) => {
-  return dataApi.get("/reviews").then(({ data }) => {
-    return data.reviews;
+export const getCategories = () => {
+  return dataApi.get(`/categories`).then(({ data }) => {
+    return data.categories;
   });
+};
+
+export const getReviews = (category, sortBy = "date", orderDesc = true) => {
+  const paramBody = {};
+  if (category) paramBody.category = category;
+
+  return dataApi
+    .get("/reviews", {
+      params: paramBody,
+    })
+    .then(({ data }) => {
+      return data.reviews;
+    });
 };
 export const getReviewById = (id) => {
   return dataApi.get(`/reviews/${id}`).then(({ data }) => {

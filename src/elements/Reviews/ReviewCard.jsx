@@ -9,13 +9,17 @@ export const ReviewCard = ({
       <li className="card">
         <span className="spreadLine">
           <h3>{title}</h3>
+
           <span className="noWrap">
             {votes} {votes !== 1 ? "votes" : "vote"}
           </span>
         </span>
+
         <div>by {owner}</div>
+
         <span className="wrapLine">
           <span>{moment(date).format("MMM Do YYYY")}</span>
+
           <span>
             {comment_count} {comment_count === 1 ? "comment" : "comments"}
           </span>

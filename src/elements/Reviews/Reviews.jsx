@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getReviews } from "../utils/api";
+import { getReviews } from "../../utils/api";
 import { ReviewCard } from "./ReviewCard";
 
 export const Reviews = () => {
@@ -26,7 +26,7 @@ export const Reviews = () => {
         reviews.length > 0 ? (
           <ul>
             {reviews.map((review) => (
-              <ReviewCard review={review} />
+              <ReviewCard key={review.review_id} review={review} />
             ))}
           </ul>
         ) : (

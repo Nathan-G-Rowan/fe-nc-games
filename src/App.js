@@ -2,7 +2,7 @@ import "./App.css";
 
 import { getUsers } from "./utils/api";
 import { useEffect, useState } from "react";
-import { Reviews } from "./elements/Reviews";
+import { Reviews } from "./elements/Reviews/Reviews";
 import { SingleReview } from "./elements/SingleReview";
 
 import { useNavigate, useLocation, Routes, Route } from "react-router-dom";

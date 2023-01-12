@@ -47,7 +47,7 @@ export const NewComment = ({ username, setComments }) => {
         />
 
         <button disabled={postingComment} onClick={submitComment}>
-          Submit Comment
+          {postingComment ? "Posting Comment..." : "Submit Comment"}
         </button>
       </form>
     </section>

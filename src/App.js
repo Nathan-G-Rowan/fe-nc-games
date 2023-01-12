@@ -2,7 +2,7 @@ import "./App.css";
 
 import { getUsers } from "./utils/api";
 import { useEffect, useState } from "react";
-import { Reviews } from "./elements/Reviews/Reviews";
+import { Reviews } from "./elements/reviews/Reviews";
 import { SingleReview } from "./elements/SingleReview";
 
 import {

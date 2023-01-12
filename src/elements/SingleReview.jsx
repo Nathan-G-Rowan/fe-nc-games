@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { getReviewById } from "../utils/api";
 
-import { Comments } from "./Comments/Comments";
+import { Comments } from "./comments/Comments";
 import { Vote } from "./Vote";
 
 export const SingleReview = ({ username }) => {

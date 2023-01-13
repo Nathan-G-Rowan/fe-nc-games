@@ -4,6 +4,7 @@ import { getUsers } from "./utils/api";
 import { useEffect, useState } from "react";
 import { Reviews } from "./elements/reviews/Reviews";
 import { SingleReview } from "./elements/SingleReview";
+import { NotFound } from "./elements/NotFound";
 
 import {
   useNavigate,
@@ -60,6 +61,7 @@ function App() {
               element={<SingleReview username={user.username} />}
             />
           ) : null}
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </main>
     </div>

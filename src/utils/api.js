@@ -16,10 +16,15 @@ export const getCategories = () => {
   });
 };
 
-export const getReviews = (category, sortBy = "date", orderDesc = true) => {
+export const getReviews = (category, sortBy = "date", order = true) => {
+  const params = {
+    category: category,
+    sort_by: sortBy,
+    order: order ? "asc" : "desc",
+  };
   return dataApi
     .get("/reviews", {
-      params: { category, sortBy, order: orderDesc ? "asc" : "desc" },
+      params,
     })
     .then(({ data }) => {
       return data.reviews;

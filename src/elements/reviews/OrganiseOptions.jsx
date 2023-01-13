@@ -77,7 +77,7 @@ export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
         </div>{" "}
       </div>
       <div className="flipCheck">
-        <label htmlFor="flip-check">Flipped Order:</label>
+        <label htmlFor="flip-check">Ascending Order:</label>
         <input
           checked={organise.order}
           type="checkbox"

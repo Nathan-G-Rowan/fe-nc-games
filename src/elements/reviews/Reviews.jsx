@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useSearchParams,
+  createSearchParams,
+} from "react-router-dom";
 import { getReviews, getCategories } from "../../utils/api";
 
-import { CategoryDropdown } from "./CategoryDropdown";
+import "./Reviews.css";
+import { CategoryDropdown } from "./OrganiseOptions";
 import { ReviewCard } from "./ReviewCard";
 
 export const Reviews = () => {
   const navigate = useNavigate();
-  const { category_slug } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [reviews, setReviews] = useState([]);
@@ -15,20 +21,53 @@ export const Reviews = () => {
   const [categoryError, setCategoryError] = useState(false);
   const [categories, setCategories] = useState([]);
   const [organise, setOrganise] = useState({
-    sort_by: "date",
-    orderDesc: true,
+    category: searchParams.get("category"),
+    sort_by: searchParams.get("sort_by")
+      ? searchParams.get("sort_by")
+      : "created_at",
+    order: !!searchParams.get("order"),
   });
 
   useEffect(() => {
+    setOrganise({
+      category: searchParams.get("category"),
+      sort_by: searchParams.get("sort_by")
+        ? searchParams.get("sort_by")
+        : "created_at",
+      order: !!searchParams.get("order"),
+    });
     getCategories().then((resCategories) => setCategories(resCategories));
   }, []);
 
   useEffect(() => {
-    organise.category = category_slug;
+    const params = {};
+    let realCategory = false;
+    categories.forEach((category) => {
+      if (organise.category === category.slug) realCategory = true;
+    });
+
+    if (realCategory) params.category = organise.category;
+    if (organise.sort_by && organise.sort_by !== "created_at")
+      params.sort_by = organise.sort_by;
+    if (organise.order) params.order = true;
+    navigate({
+      pathname: "/",
+      search: createSearchParams({
+        ...params,
+      }).toString(),
+    });
+  }, [organise]);
+
+  useEffect(() => {
+    if (!organise.sort_by) organise.sort_by = "created_at";
     setIsLoaded(false);
     setReviews([]);
 
-    getReviews(category_slug, organise.sort_by, organise.orderDesc)
+    getReviews(
+      searchParams.get("category"),
+      searchParams.get("sort_by"),
+      searchParams.get("order")
+    )
       .then((reviews) => {
         setCategoryError(false);
         setIsLoaded(true);
@@ -37,14 +76,13 @@ export const Reviews = () => {
       .catch((error) => {
         setCategoryError(true);
       });
-  }, [organise, navigate]);
+  }, [searchParams]);
 
   return (
     <section className="ReviewList">
       <CategoryDropdown
         organise={organise}
         setOrganise={setOrganise}
-        category_slug={category_slug}
         categories={categories}
         navigate={navigate}
       />

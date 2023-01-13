@@ -1,0 +1,89 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-size: medium;
+}
+
+.dropButton {
+  min-width: 12.5em;
+  font-size: medium;
+  margin-bottom: 0px;
+}
+.dropButton:hover {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.dropContent {
+  width: 100%;
+  z-index: 1;
+
+  display: none;
+  position: absolute;
+  font-size: medium;
+
+  padding: 0;
+  margin: 0;
+
+  border: 1px solid white;
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  box-shadow: -2px 2px white;
+
+  color: white;
+  background: #004455;
+}
+
+.dropContent button {
+  margin: 0px;
+  margin: top 5px;
+  width: 100%;
+  font-size: medium;
+  border: none;
+  border-bottom: solid 1px white;
+  box-shadow: none;
+  border-radius: 0px;
+
+  display: block;
+}
+.dropContent button:hover {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: crimson;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: -3px 3px crimson;
+}
+.dropdown:hover .dropContent {
+  display: block;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  background: transparent;
+  border: 1px solid white;
+  box-shadow: -2px 2px white;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 5px;
+  transform: translate(0px, 0.6em);
+}
+
+input[type="checkbox"]:checked {
+  background: crimson;
+}
+input[type="checkbox"]:hover {
+  background: white;
+  box-shadow: -2px 2px crimson;
+}
+input[type="checkbox"]:checked::after {
+  content: "X";
+  position: absolute;
+  transform: translate(0.5em, 0.25em);
+  color: white;
+  z-index: 1;
+}
+input[type="checkbox"]:checked:hover::after {
+  color: crimson;
+}

@@ -196,42 +196,6 @@ textarea {
   width: 100%;
 }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.dropButton {
-  min-width: 10em;
-}
-
-.dropContent {
-  width: 100%;
-
-  display: none;
-  position: absolute;
-  z-index: 1;
-}
-.dropContent button {
-  margin: 5px 0;
-  width: 100%;
-
-  background-color: #004455;
-
-  display: block;
-}
-.dropContent button:disabled {
-  color: white;
-  background-color: crimson;
-}
-.dropContent button:hover {
-  color: crimson;
-  background-color: white;
-}
-.dropdown:hover .dropContent {
-  display: block;
-}
-
 ::-webkit-scrollbar {
   width: 1.2em;
 }

@@ -36,8 +36,7 @@ function App() {
         {user ? user.name : "Loading User"}
         <button
           disabled={
-            url.pathname === "/" ||
-            url.pathname.match(/\/category\/:category_slug/)
+            url.pathname === "/"
           }
           onClick={() => navigate("/")}
         >
@@ -53,7 +52,6 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Reviews />} />
-          <Route path="/category/:category_slug" element={<Reviews />} />
           {user ? (
             <Route
               path="/review/:id/*"

@@ -4,7 +4,7 @@ import { getUsers } from "./utils/api";
 import { useEffect, useState } from "react";
 import { Reviews } from "./elements/reviews/Reviews";
 import { SingleReview } from "./elements/SingleReview";
-
+import { User } from "./elements/User";
 import {
   useNavigate,
   useLocation,
@@ -34,12 +34,7 @@ function App() {
       </header>
       <nav>
         {user ? user.name : "Loading User"}
-        <button
-          disabled={
-            url.pathname === "/"
-          }
-          onClick={() => navigate("/")}
-        >
+        <button disabled={url.pathname === "/"} onClick={() => navigate("/")}>
           Reviews
         </button>
         <button
@@ -56,6 +51,12 @@ function App() {
             <Route
               path="/review/:id/*"
               element={<SingleReview username={user.username} />}
+            />
+          ) : null}
+          {user ? (
+            <Route
+              path="/user"
+              element={<User user={user} setUser={setUser} />}
             />
           ) : null}
         </Routes>

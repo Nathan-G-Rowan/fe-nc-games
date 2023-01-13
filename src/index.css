@@ -68,6 +68,18 @@ img {
   border: 1px solid white;
   border-radius: 10px;
   box-shadow: -2px 2px white;
+
+  background: white;
+}
+
+.profilePicture {
+  width: 100vw;
+  height: 100vw;
+  max-width: 240px;
+  max-height: 240px;
+
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 main {

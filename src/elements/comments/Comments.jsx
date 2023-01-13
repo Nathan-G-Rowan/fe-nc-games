@@ -37,7 +37,12 @@ export const Comments = ({ username }) => {
       <div className="commentContainer">
         <ul>
           {comments.map((comment) => (
-            <CommentCard key={comment.comment_id} comment={comment} />
+            <CommentCard
+              key={comment.comment_id}
+              comment={comment}
+              username={username}
+              setComments={setComments}
+            />
           ))}
         </ul>
       </div>

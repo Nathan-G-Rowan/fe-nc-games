@@ -90,6 +90,7 @@ main {
   overflow-wrap: break-word;
 }
 
+
 .hoverCard {
   margin: 10px 0;
   padding: 5px;
@@ -173,7 +174,7 @@ nav button:hover {
   align-items: center;
   gap: 0 1em;
 }
-.felxLine {
+.flexLine {
   display: flex;
   flex-wrap: wrap;
   gap: 0 0.5em;

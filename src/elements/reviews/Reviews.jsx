@@ -6,6 +6,7 @@ import {
   createSearchParams,
 } from "react-router-dom";
 import { getReviews, getCategories } from "../../utils/api";
+import { sort_byes } from "../../utils/constants";
 
 import "./Reviews.css";
 import { CategoryDropdown } from "./OrganiseOptions";
@@ -17,9 +18,12 @@ export const Reviews = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [reviewReady, setReviewReady] = useState(false);
 
   const [categoryError, setCategoryError] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [categoriesLoaded, setCategoriesLoaded] = useState(false);
+
   const [organise, setOrganise] = useState({
     category: searchParams.get("category"),
     sort_by: searchParams.get("sort_by")
@@ -36,47 +40,65 @@ export const Reviews = () => {
         : "created_at",
       order: !!searchParams.get("order"),
     });
-    getCategories().then((resCategories) => setCategories(resCategories));
+    getCategories().then((resCategories) => {
+      setCategories(resCategories);
+      setCategoriesLoaded(true);
+    });
   }, []);
 
   useEffect(() => {
-    const params = {};
-    let realCategory = false;
-    categories.forEach((category) => {
-      if (organise.category === category.slug) realCategory = true;
-    });
+    if (categoriesLoaded) {
+      setReviewReady(false);
+      const params = {};
 
-    if (realCategory) params.category = organise.category;
-    if (organise.sort_by && organise.sort_by !== "created_at")
-      params.sort_by = organise.sort_by;
-    if (organise.order) params.order = true;
-    navigate({
-      pathname: "/",
-      search: createSearchParams({
-        ...params,
-      }).toString(),
-    });
-  }, [organise]);
-
-  useEffect(() => {
-    if (!organise.sort_by) organise.sort_by = "created_at";
-    setIsLoaded(false);
-    setReviews([]);
-
-    getReviews(
-      searchParams.get("category"),
-      searchParams.get("sort_by"),
-      searchParams.get("order")
-    )
-      .then((reviews) => {
-        setCategoryError(false);
-        setIsLoaded(true);
-        setReviews(reviews);
-      })
-      .catch((error) => {
-        setCategoryError(true);
+      let realCategory = false;
+      categories.forEach((category) => {
+        if (organise.category === category.slug) realCategory = true;
       });
-  }, [searchParams]);
+      if (realCategory) params.category = organise.category;
+
+      if (
+        sort_byes.includes(organise.sort_by) &&
+        organise.sort_by !== "created_at"
+      ) {
+        params.sort_by = organise.sort_by;
+      }
+
+      if (organise.order) params.order = true;
+
+      navigate({
+        pathname: "/",
+        search: createSearchParams({
+          ...params,
+        }).toString(),
+      });
+
+      setReviewReady(true);
+    }
+  }, [organise, categoriesLoaded]);
+
+  // Send API request
+  useEffect(() => {
+    if (reviewReady) {
+      console.log(organise);
+      setIsLoaded(false);
+      setReviews([]);
+
+      getReviews(
+        searchParams.get("category"),
+        searchParams.get("sort_by"),
+        searchParams.get("order")
+      )
+        .then((reviews) => {
+          setCategoryError(false);
+          setIsLoaded(true);
+          setReviews(reviews);
+        })
+        .catch((error) => {
+          setCategoryError(true);
+        });
+    }
+  }, [searchParams, reviewReady]);
 
   return (
     <section className="ReviewList">

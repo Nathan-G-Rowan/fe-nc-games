@@ -1,13 +1,5 @@
 import { OrganiseButton } from "./OrganiseButton";
-
-const sort_byes = [
-  "created_at",
-  "category",
-  "designer",
-  "owner",
-  "title",
-  "votes",
-];
+import { sort_byes } from "../../utils/constants";
 
 export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
   return (
@@ -51,7 +43,7 @@ export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
         </div>
       </div>{" "}
       <div className="sortOptions">
-        <label htmlFor="sort-dropdown">Sorting by</label>
+        <label htmlFor="sort-dropdown">{"Sorting by "}</label>
         <div className="dropdown" id="sort-dropdown">
           <button className="dropButton">
             {organise.sort_by === "created_at"

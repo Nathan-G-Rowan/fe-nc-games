@@ -21,7 +21,7 @@ export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
               slug="all"
               setOrganise={setOrganise}
               field={"category"}
-              value={organise.category}
+              disabled={!organise.category || organise.category === "all"}
             />
 
             {categories.map((category) => {
@@ -31,7 +31,7 @@ export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
                   slug={category.slug}
                   setOrganise={setOrganise}
                   field={"category"}
-                  value={organise.category}
+                  disabled={organise.category === category.slug}
                 />
               );
             })}
@@ -52,7 +52,7 @@ export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
                   slug={sort_by}
                   setOrganise={setOrganise}
                   field={"sort_by"}
-                  value={organise.sort_by}
+                  disabled={organise.sort_by === sort_by}
                 />
               );
             })}

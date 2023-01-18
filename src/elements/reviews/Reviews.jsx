@@ -25,7 +25,9 @@ export const Reviews = () => {
   const [categoriesLoaded, setCategoriesLoaded] = useState(false);
 
   const [organise, setOrganise] = useState({
-    category: searchParams.get("category"),
+    category: searchParams.get("category")
+      ? searchParams.get("category")
+      : "all",
     sort_by: searchParams.get("sort_by")
       ? searchParams.get("sort_by")
       : "created_at",
@@ -80,7 +82,6 @@ export const Reviews = () => {
   // Send API request
   useEffect(() => {
     if (reviewReady) {
-      console.log(organise);
       setIsLoaded(false);
       setReviews([]);
 

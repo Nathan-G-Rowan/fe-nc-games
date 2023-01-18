@@ -1,3 +1,8 @@
+h3 {
+  margin: 0;
+}
+
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -7,7 +12,7 @@
 .dropButton {
   min-width: 12.5em;
   font-size: medium;
-  margin-bottom: 0px;
+  margin: 0px;
 }
 .dropButton:hover {
   border-bottom-left-radius: 0px;

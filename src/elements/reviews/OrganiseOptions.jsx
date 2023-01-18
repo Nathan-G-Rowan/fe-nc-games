@@ -1,5 +1,5 @@
 import { OrganiseButton } from "./OrganiseButton";
-import { sort_byes } from "../../utils/constants";
+import { sort_byes, sort_titles, category_titles } from "../../utils/constants";
 
 export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
   return (
@@ -11,31 +11,27 @@ export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
         <div className="dropdown" id="category-dropdown">
           <button className="dropButton">
             {organise.category
-              ? `${(
-                  organise.category[0].toUpperCase() +
-                  organise.category.slice(1)
-                ).replaceAll("-", " ")} Games`
+              ? `${category_titles[organise.category]} Games`
               : "All Games"}{" "}
             ▼
           </button>
           <div className="dropContent">
-            {organise.category ? (
-              <OrganiseButton
-                key="all"
-                slug="all"
-                setOrganise={setOrganise}
-                field={"category"}
-              />
-            ) : null}
+            <OrganiseButton
+              key="all"
+              slug="all"
+              setOrganise={setOrganise}
+              field={"category"}
+              value={organise.category}
+            />
 
             {categories.map((category) => {
-              if (category.slug === organise.category) return null;
               return (
                 <OrganiseButton
                   key={category.slug}
                   slug={category.slug}
                   setOrganise={setOrganise}
                   field={"category"}
+                  value={organise.category}
                 />
               );
             })}
@@ -46,22 +42,17 @@ export const CategoryDropdown = ({ organise, setOrganise, categories }) => {
         <label htmlFor="sort-dropdown">{"Sorting by "}</label>
         <div className="dropdown" id="sort-dropdown">
           <button className="dropButton">
-            {organise.sort_by === "created_at"
-              ? "Time Published"
-              : (
-                  organise.sort_by[0].toUpperCase() + organise.sort_by.slice(1)
-                ).replaceAll("_", " ")}{" "}
-            ▼
+            {sort_titles[organise.sort_by]} ▼
           </button>
           <div className="dropContent">
             {sort_byes.map((sort_by) => {
-              if (sort_by === organise.sort_by) return null;
               return (
                 <OrganiseButton
                   key={sort_by}
                   slug={sort_by}
                   setOrganise={setOrganise}
                   field={"sort_by"}
+                  value={organise.sort_by}
                 />
               );
             })}
